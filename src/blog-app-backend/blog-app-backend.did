@@ -1,3 +1,25 @@
+type User = record {
+    id: principal;
+    username: text;
+    password_hash: text;
+};
+
+type Session = record {
+    user_id: principal;
+    expires_at: nat64;
+};
+
+type LoginRequest = record {
+    username: text;
+    password: text;
+};
+
+type LoginResponse = record {
+    session_id: text;
+};
+
 service : {
-    "greet": (text) -> (text) query;
+    login: (LoginRequest) -> (LoginResponse) query;
+    protected_route: (text) -> (text) query;
+    clear_expired_sessions: () -> ();
 }
