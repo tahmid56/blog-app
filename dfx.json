@@ -1,0 +1,27 @@
+{
+  "canisters": {
+    "blog-app-backend": {
+      "candid": "src/blog-app-backend/blog-app-backend.did",
+      "package": "blog-app-backend",
+      "type": "rust"
+    },
+    "blog-app-frontend": {
+      "dependencies": [
+        "blog-app-backend"
+      ],
+      "source": [
+        "src/blog-app-frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "blog-app-frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
