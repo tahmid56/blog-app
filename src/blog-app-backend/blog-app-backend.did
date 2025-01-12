@@ -1,25 +1,28 @@
-type User = record {
-    id: principal;
-    username: text;
-    password_hash: text;
+type Error = record {
+    status: text;
+    code: int;
+    message: text;
 };
 
-type Session = record {
-    user_id: principal;
-    expires_at: nat64;
+type Response = record {
+    status: text;
+    code: int;
+    data: text;
 };
 
-type LoginRequest = record {
-    username: text;
-    password: text;
-};
-
-type LoginResponse = record {
-    session_id: text;
+type Blog = record {
+    id: int;
+    title: text;
+    content: text;
+    author_id: int;
+    created_at: nat64;
 };
 
 service : {
-    login: (LoginRequest) -> (LoginResponse) query;
-    protected_route: (text) -> (text) query;
-    clear_expired_sessions: () -> ();
+    register: (username: text, password_hash: text) -> (variant { Ok: Response; Err: Error });
+    login: (username: text, password_hash: text) -> (variant { Ok: Response; Err: Error });
+    is_logged_in: (user_id: int) -> (bool) query;
+    logout: (user_id: int) -> (Response);
+    create_blog: (title: text, content: text, user_id: int) -> (variant { Ok: Response; Err: Error });
+    get_all_blogs: () -> (vec Blog) query;
 }

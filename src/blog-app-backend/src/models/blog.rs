@@ -1,12 +1,13 @@
-use candid::CandidType;
-use serde::{Deserialize, Serialize};
+use candid::{CandidType, Int};
+use serde::{Deserialize};
 
 
 
-#[derive(Debug, Serialize, Deserialize, Clone, CandidType)]
+#[derive(Clone, Debug, CandidType, Deserialize)]
 pub struct Blog {
-    pub id: u32,
+    pub id: Int,
     pub title: String,
     pub content: String,
-    pub author_id: u32,
+    pub author_id: Int,
+    pub created_at: u64,
 }
